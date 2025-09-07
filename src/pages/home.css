@@ -1,0 +1,167 @@
+:root{
+  --maxw:1140px; --gutter:20px;
+  --space-xl:72px; --space-lg:56px; --space-md:28px; --space-sm:16px;
+  --text:#333; --muted:#6b6f73; --rule:#eee;
+  --primary:#2b6c82; --primaryH:#255a6c;
+  --header-h:64px;
+}
+*{box-sizing:border-box}
+body{color:var(--text);line-height:1.55;}
+
+/* Containers & sections */
+.container{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
+.section{padding:var(--space-xl) 0}
+
+/* Add spacing after slider */
+.hero--home{margin-bottom:var(--space-xl);}
+
+/* Add spacing between sections */
+.twoCol{margin-bottom:var(--space-xl);}
+
+/* Buttons */
+.btn{display:inline-block;padding:12px 22px;border-radius:6px;font-weight:700;text-decoration:none}
+.btn-primary{background:#fff;color:var(--primary);border:1px solid var(--primary)}
+.btn-primary:hover{background:#f8f9fa;color:var(--primaryH);border-color:var(--primaryH)}
+.btn:focus{outline:2px solid currentColor;outline-offset:2px}
+
+/* 🔒 Never let slides tile, always fill and crop correctly - Override any global .slide rules */
+.hero--home,
+.hero--home .slide,
+.hero--home .slide.current {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center center !important; /* default center crop */
+}
+
+/* Specific positioning for different images */
+.hero--home .slide[style*="Img_001"] {
+  background-position: center 15% !important; /* Show from 15% down for Img_001 */
+}
+
+.hero--home .slide[style*="Img_003"] {
+  background-position: center center !important; /* Show vertical center for Img_003 */
+}
+
+/* Make sure the slide actually sits above the page background and paints fully */
+.hero--home { position: relative; height: 520px; overflow: hidden }
+.hero--home .slide { position: absolute; inset: 0 }
+
+/* Override any global .slide background shorthand but preserve inline backgroundImage */
+.hero--home .slide,
+.hero--home .slide.current { 
+  background-color: transparent !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: top center !important;
+  /* Don't override background-image since that's set inline by React */
+}
+
+/* Hero layout stays the same except for z-index and visibility safety */
+.hero--home{ position:relative; height:520px; overflow:hidden }
+.slide{
+  position:absolute; inset:0;
+  transition: opacity .35s ease;
+  /* background properties handled by hard-lock rules above */
+  /* no default opacity here; it's set inline so first paint is visible */
+}
+.overlay{ position:absolute; inset:0; z-index:2; background:linear-gradient(90deg, rgba(0,0,0,.55), rgba(0,0,0,.25)) }
+.heroContent{ position:absolute; inset:0; z-index:3; max-width:var(--maxw); margin:0 auto; padding-left:140px; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:16px }
+.hero--home h1{color:#fff;font-size:42px;margin:0}
+.hero--home p{color:#fff;font-size:18px;margin:0 0 8px}
+.chev{
+  position:absolute; top:50%; transform:translateY(-50%);
+  z-index:4; background:rgba(0,0,0,0.6); border:none; width:44px; height:44px;
+  border-radius:8px; display:grid; place-items:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.3); cursor:pointer;
+  backdrop-filter: blur(2px); /*blur effect */
+}
+.chev:hover{
+  background:rgba(0,0,0,0.7);
+}
+.chev.left{ left:12px } .chev.right{ right:12px }
+.flipX{ transform:scaleX(-1) }
+.chev img{ 
+  display:block; 
+  width:18px; height:18px;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); /* shadow to make SVG stand out */
+  position:relative;
+  z-index:1;
+}  /* ensure the SVG actually shows */
+.chev:focus{outline:2px solid #000}
+.dots{ position:absolute; left:50%; transform:translateX(-50%); bottom:18px; display:flex; gap:8px; z-index:4 }
+.dot{width:8px;height:8px;border-radius:999px;border:2px solid #fff;background:transparent;opacity:.7}
+.dot.active{background:#fff;opacity:1}
+
+/* Two-column section */
+.twoCol{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--space-lg);margin-bottom:120px} /* Increased spacing to 120px */
+.twoCol .text h2{margin:0 0 var(--space-sm)}
+.twoCol .text p{margin:0 0 var(--space-sm);line-height:1.65}
+.bullets{margin:0 0 var(--space-sm) 18px}
+.bullets li{margin:6px 0}
+.cardImg{margin:0;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.15);overflow:hidden}
+.cardImg img{display:block;width:100%;height:auto}
+
+/* stack: image bg wash content frame */
+.overlayCta{
+  position:relative;
+  min-height:520px;/* matches your design */
+  overflow:hidden;
+}
+
+/* Backing image: no wrap, fills width, shows TOP of the image */
+.overlayCta__bg{ position:absolute; inset:0; z-index:0 }
+.overlayCta__bg img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  object-position: top center;/* <-- show the TOP of the image */
+  /* No transform scaling here; you asked to show the top, full-width */
+}
+
+/* NO grey wash layer anymore */
+
+.overlayCta__frame{
+  position:absolute; 
+  inset:0;
+  z-index:1; 
+  display:flex; 
+  align-items:center;/* vertical center the card to image height */
+  justify-content:flex-start;/* align to left */
+  padding:0 var(--gutter);/* horizontal padding only */
+}
+
+.ctaCard{
+  max-width:640px;
+  background:rgba(0,0,0,.55);
+  color:#fff; border-radius:8px; padding:28px;
+  margin-left:calc(25vw - 320px - 320px);/* Move left by half the card width (320px) */
+  min-width:280px; /* Ensure minimum width on small screens */
+}
+.ctaCard h3{margin:0 0 10px}
+.ctaCard p{ color:#eef; line-height:1.6; margin:0 0 16px }
+.ctaCard .btn-primary{
+  background:#fff;
+  color:var(--primary);
+  border:1px solid var(--primary);
+}
+
+/* Three paragraphs */
+.centeredHead{text-align:center;margin-bottom:28px}
+.centeredHead .sub{color:var(--muted);margin:6px 0 0}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.grid3 p{color:#41454a;line-height:1.65;margin:0}
+.centerBtn{display:flex;justify-content:center;margin-top:24px}
+
+/* Responsive */
+@media (max-width:900px){
+  .hero--home{height:440px; margin-bottom:var(--space-lg);}
+  .heroContent{padding:0 var(--gutter)}
+  .twoCol{grid-template-columns:1fr;gap:var(--space-md); margin-bottom:var(--space-lg);}
+  .ctaCard{ 
+    margin-left:20px; /* Smaller margin on mobile */
+    margin-right:auto;
+    max-width:520px; /* Smaller on mobile for better readability */
+  }
+  .grid3{grid-template-columns:1fr}
+  .overlayCta{min-height:400px;}/* Smaller height on mobile */
+}

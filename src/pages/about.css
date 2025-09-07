@@ -1,0 +1,95 @@
+.container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+.section   { padding: 32px 0; }  /* Reduced for compact layout */
+
+.lead { color: #6b6f73; line-height: 1.65; max-width: 860px; }
+.about-head p { margin: 0 0 14px; }
+
+/* single framed image, smaller for compact layout */
+.cardImg{
+  margin: 0 auto;
+  max-width: 750px;              /* Reduced for better proportions */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+}
+.cardImg img{ display:block; width:100%; height:auto; } /* no stretching */
+
+/* body and list, reduced spacing for compact layout */
+.about-body p { color:#41454a; line-height:1.7; margin:0 0 8px; }  /* Reduced from 16px */
+.about-list h2 { margin:0 0 10px; }
+.about-list .bullets { margin:0 0 0 18px; }
+.about-list .bullets li { margin:8px 0; line-height:1.6; }
+
+/* safety, never render About image as background */
+#about, #about * { background-image: none !important; }
+
+/* Base styling */
+#about .about-head h1 {
+  margin: 0 0 8px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.about-head p a {
+  color: #2b6c82;
+  text-decoration: none;
+}
+
+.about-head p a:hover {
+  text-decoration: underline;
+}
+
+/* Blue link styling for body paragraphs */
+.about-body p a {
+  color: #2b6c82;
+  text-decoration: none;
+}
+
+.about-body p a:hover {
+  text-decoration: underline;
+}
+
+.about-list h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.about-list .bullets {
+  padding: 0;
+  list-style-type: disc;
+}
+
+.about-list .bullets li {
+  color: #41454a;
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  #about .about-head h1 {
+    font-size: 2rem;
+  }
+  
+  .section {
+    padding: 24px 0;  /* Compact spacing for mobile */
+  }
+  
+  .lead {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  #about .about-head h1 {
+    font-size: 1.75rem;
+  }
+  
+  .about-list h2 {
+    font-size: 1.25rem;
+  }
+  
+  .section {
+    padding: 16px 0;  /* Very compact for small screens */
+  }
+}

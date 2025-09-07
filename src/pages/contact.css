@@ -1,0 +1,135 @@
+:root{
+  --container-w:1140px;
+  --pad-x:20px;
+  --fg:#222;
+  --muted:#5f656b;
+  --border:#D9E1E5;
+  --focus:rgba(23,125,179,.2);
+  --btn:#1b6f8d; 
+  --btn-hover:#17617a;
+  --btn-disabled:#b8c5cc;
+  --btn-disabled-txt:#6f7a80;
+  --ghost-bg:#eaf3f6;
+  --success-bg:#e8f5df;
+  --success-accent:#5aa031;
+}
+
+.container{max-width:var(--container-w);margin:0 auto;padding:0 var(--pad-x);min-height:inherit;}
+.grid{display:grid;grid-template-columns:560px 1fr;gap:32px;align-items:start;} /* Reduced gap to match Home */
+
+.formCol h1{font-size:32px;font-weight:700;color:var(--fg);margin:0 0 8px;}
+.subhead{color:var(--muted);max-width:520px;line-height:1.65;margin:0 0 24px;}
+
+.row{margin-bottom:16px;}
+.row.one .field{width:100%;}
+.row.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.row.four{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;}
+.msgRow{margin-top:8px}
+.checkbox{margin-top:4px;}
+
+.field label{display:block;font-size:13px;font-weight:600;color:#444;margin:16px 0 6px;}
+.row:first-of-type .field label{margin-top:24px;}
+.field input,.field textarea{
+  width:100%;border:1px solid var(--border);border-radius:6px;background:#fff;
+  padding:10px 12px;font-size:14px;color:var(--fg);outline:none;
+  transition:box-shadow 0.2s ease;
+}
+.field textarea{resize:vertical;font-family:inherit;}
+.field input:focus,.field textarea:focus{box-shadow:0 0 0 3px var(--focus);}
+
+/* helper on right of label line */
+.labelLine{display:flex;justify-content:space-between;align-items:baseline}
+.help{font-size:12px;color:#8a8f95;margin-left:12px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:6px;border:0;cursor:pointer;font-size:14px;transition:background-color 0.2s ease;}
+.btn.full{width:100%}
+.btn.primary{background:var(--btn);color:#fff;padding:12px 16px;font-weight:600;font-size:15px;width:100%;}
+.btn.primary:hover:not(:disabled){background:var(--btn-hover)}
+.btn.primary:disabled{background:var(--btn-disabled);color:var(--btn-disabled-txt);cursor:not-allowed}
+.btn.ghost{background:var(--ghost-bg);color:#2a657d;padding:10px 12px;font-weight:600;margin-bottom:16px;}
+.btn.ghost:hover:not(:disabled){background:#d1e7f0;}
+.btn.ghost:disabled{opacity:0.6;cursor:not-allowed}
+.btn.withIcon img{width:16px;height:16px;margin-right:8px}
+
+/* Checkbox styling */
+.check{display:flex;align-items:center;cursor:pointer;font-size:14px;color:var(--fg);}
+.check input[type="checkbox"]{width:auto;margin-right:8px;}
+
+.successCard{
+  background:var(--success-bg);border-radius:8px;padding:24px 28px;max-width:520px
+}
+.successCard .tick{
+  width:36px;height:36px;border-radius:50%;background:var(--success-accent);
+  margin:0 0 10px;position:relative;display:flex;align-items:center;justify-content:center;
+}
+.successCard .tick img{
+  width:20px;height:20px;filter:brightness(0) invert(1);
+}
+.successTitle{font-weight:800;letter-spacing:.08em;font-size:12px;margin-bottom:6px;color:#2b2f33}
+.successNote{font-size:13px;color:#4b5055}
+
+/* right artwork */
+.artCol{position:relative}
+.artCol img{
+  position:fixed;
+  top:-3vh; /* Hide 3% on top*/
+  right:5%; 
+  width:auto;
+  height:100vh;
+  object-fit:cover;
+  object-position:center;
+  z-index:-1; /* Behind content */
+}
+
+/* errors hook up with classes, aria as wire validation */
+.errorTxt{margin-top:4px;font-size:12px;color:#b30000;font-weight:500;}
+.error input,.error textarea{border-color:#e85b5b}
+.error input:focus,.error textarea:focus{box-shadow:0 0 0 3px rgba(232,91,91,.2);}
+
+/* responsive */
+@media (max-width:1100px){
+  .grid{grid-template-columns:1fr;gap:24px}
+  .artCol img{
+    display:none; /* Hide image on mobile*/
+  }
+  .row.two,.row.four{grid-template-columns:1fr}
+  main.contact{
+    padding:20px 0 5px; /* Minimal bottom padding */
+    min-height: calc(100vh - var(--hdrH) - var(--ftrH));
+  }
+}
+
+/* Lock a slightly taller minimum on very big screens */
+@media (min-width: 1024px){
+  main.contact{ 
+    min-height: max(760px, calc(100vh - var(--hdrH) - var(--ftrH))); 
+  }
+}
+@media (max-width:640px){
+  main.contact{
+    padding:16px 0 5px; /* Minimal bottom padding */
+    min-height: calc(100vh - var(--hdrH) - var(--ftrH));
+  }
+  .formCol h1{font-size:28px}
+  .row.four{grid-template-columns:1fr 1fr}
+}
+
+/* Reduce page bottom padding on Contact */
+main.contact {
+  padding-top: 24px;
+  padding-bottom: 5px; /* Minimal bottom padding to match footer */
+  min-height: calc(100vh - var(--hdrH) - var(--ftrH));
+}
+
+main.contact .container {
+  padding-bottom: 0;
+}
+
+/* Make sure the final row in the form success state doesn't add extra gap */
+main.contact .formCol > *:last-child {
+  margin-bottom: 0;
+}
+
+main.contact .btn.primary.withIcon {
+  margin-bottom: 0;
+}
